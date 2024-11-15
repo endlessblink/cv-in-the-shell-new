@@ -164,18 +164,25 @@ Please process this CV according to the above specifications while maintaining r
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 text-left">
             <div className="p-4 rounded-lg bg-white/50 backdrop-blur-sm border border-slate-200 shadow-sm hover:shadow-md transition-all duration-300">
               <div className="text-lg font-semibold mb-2 text-slate-800">1. Input Details</div>
-              <p className="text-sm text-slate-600">Enter your OpenAI API key and paste the job description.</p>
+              <p className="text-sm text-slate-600">Enter your OpenAI API key and paste the target job description. Your resume will be optimized for ATS systems.</p>
             </div>
             <div className="p-4 rounded-lg bg-white/50 backdrop-blur-sm border border-slate-200 shadow-sm hover:shadow-md transition-all duration-300">
               <div className="text-lg font-semibold mb-2 text-slate-800">2. Current Resume</div>
-              <p className="text-sm text-slate-600">Share your existing resume to use as a base for the AI-powered enhancement.</p>
+              <p className="text-sm text-slate-600">Share your existing resume. AI will reformat it to be ATS-friendly with proper keywords and structure.</p>
             </div>
             <div className="p-4 rounded-lg bg-white/50 backdrop-blur-sm border border-slate-200 shadow-sm hover:shadow-md transition-all duration-300">
-              <div className="text-lg font-semibold mb-2 text-slate-800">3. Generate</div>
-              <p className="text-sm text-slate-600">Let AI tailor your resume to match the job requirements perfectly.</p>
+              <div className="text-lg font-semibold mb-2 text-slate-800">3. Get ATS-Optimized CV</div>
+              <p className="text-sm text-slate-600">Receive a professionally formatted, ATS-optimized resume tailored to your target role.</p>
             </div>
           </div>
-        </div>
+
+          {/* Optional: Add an ATS info badge */}
+          <div className="mt-4 inline-flex items-center px-3 py-1 text-sm font-medium rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+            <svg className="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            Optimized for Applicant Tracking Systems (ATS)
+          </div>
 
         {/* Main Form Card */}
         <Card className="mb-8 relative overflow-hidden border border-slate-800/20 bg-white shadow-xl">
