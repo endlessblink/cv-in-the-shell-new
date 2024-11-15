@@ -110,7 +110,7 @@ Please create a tailored resume that highlights the relevant experience and skil
         </div>
 
         {/* Main Form Card */}
-        <Card className="mb-8 relative overflow-hidden border border-slate-800/20 bg-gradient-to-b from-white to-slate-50/50 shadow-2xl shadow-slate-500/20 before:pointer-events-none before:absolute before:inset-0 before:bg-[length:200%_200%] before:bg-[linear-gradient(45deg,transparent_25%,rgba(68,68,68,.2)_50%,transparent_75%,transparent_100%)] before:animate-shimmer">
+        <Card className="mb-8 relative overflow-hidden border border-slate-800/20 bg-white shadow-xl">
           <CardHeader>
             <CardTitle className="text-xl text-slate-800">Resume Generator</CardTitle>
             <CardDescription>Fill in the details below to generate your tailored resume</CardDescription>
@@ -185,7 +185,7 @@ Please create a tailored resume that highlights the relevant experience and skil
         )}
 
         {generatedResume && (
-          <Card className="animate-in slide-in-from-bottom-4 duration-300 border border-slate-800/20 bg-gradient-to-b from-white to-slate-50/50">
+          <Card className="animate-in slide-in-from-bottom-4 duration-300 border border-slate-800/20 bg-white shadow-xl">
             <CardHeader>
               <CardTitle>Generated Resume</CardTitle>
               <CardDescription>Your AI-tailored resume is ready</CardDescription>
