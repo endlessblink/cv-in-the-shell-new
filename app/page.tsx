@@ -68,11 +68,18 @@ Please create a tailored resume that highlights the relevant experience and skil
   }
 
   return (
-    <main className="min-h-screen bg-background p-8">
-      <div className="container mx-auto max-w-3xl">
-        <Card className="mb-8">
+    <main className="min-h-screen bg-background p-8 relative overflow-hidden">
+      {/* Background gradient effect */}
+      <div className="absolute inset-0 bg-gradient-to-r from-rose-100/20 via-teal-100/20 to-violet-100/20" />
+      
+      {/* Spotlight effect */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent blur-[100px] transition-all duration-1000 group-hover:via-white/20" />
+
+      <div className="container mx-auto max-w-3xl relative">
+        {/* Main card with shimmer effect */}
+        <Card className="mb-8 relative overflow-hidden border border-slate-800/20 bg-gradient-to-b from-white to-slate-50/50 shadow-2xl shadow-slate-500/20 before:pointer-events-none before:absolute before:inset-0 before:bg-[length:200%_200%] before:bg-[linear-gradient(45deg,transparent_25%,rgba(68,68,68,.2)_50%,transparent_75%,transparent_100%)] before:animate-shimmer">
           <CardHeader>
-            <CardTitle className="text-2xl">CV in the Shell</CardTitle>
+            <CardTitle className="text-2xl bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 animate-gradient">CV in the Shell</CardTitle>
             <CardDescription>Generate a tailored resume using AI</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
@@ -85,6 +92,7 @@ Please create a tailored resume that highlights the relevant experience and skil
                 value={apiKey}
                 onChange={(e) => setApiKey(e.target.value)}
                 placeholder="Enter your OpenAI API key"
+                className="transition-all duration-300 hover:border-slate-400 focus:ring-2 focus:ring-slate-400/50"
               />
             </div>
 
@@ -96,7 +104,7 @@ Please create a tailored resume that highlights the relevant experience and skil
                 value={jobDescription}
                 onChange={(e) => setJobDescription(e.target.value)}
                 placeholder="Paste the job description here..."
-                className="min-h-[100px]"
+                className="min-h-[100px] transition-all duration-300 hover:border-slate-400 focus:ring-2 focus:ring-slate-400/50"
               />
             </div>
 
@@ -108,7 +116,7 @@ Please create a tailored resume that highlights the relevant experience and skil
                 value={qualifications}
                 onChange={(e) => setQualifications(e.target.value)}
                 placeholder="List your qualifications and skills..."
-                className="min-h-[100px]"
+                className="min-h-[100px] transition-all duration-300 hover:border-slate-400 focus:ring-2 focus:ring-slate-400/50"
               />
             </div>
 
@@ -120,7 +128,7 @@ Please create a tailored resume that highlights the relevant experience and skil
                 value={currentResume}
                 onChange={(e) => setCurrentResume(e.target.value)}
                 placeholder="Paste your current resume here..."
-                className="min-h-[200px]"
+                className="min-h-[200px] transition-all duration-300 hover:border-slate-400 focus:ring-2 focus:ring-slate-400/50"
               />
             </div>
           </CardContent>
@@ -128,7 +136,7 @@ Please create a tailored resume that highlights the relevant experience and skil
             <Button 
               onClick={generateResume}
               disabled={isLoading}
-              className="w-full"
+              className="w-full bg-gradient-to-r from-slate-800 via-slate-900 to-slate-800 hover:opacity-90 transition-all duration-300 animate-gradient bg-[length:200%_200%]"
             >
               {isLoading ? 'Generating...' : 'Generate Resume'}
             </Button>
@@ -136,7 +144,7 @@ Please create a tailored resume that highlights the relevant experience and skil
         </Card>
 
         {error && (
-          <Card className="border-destructive">
+          <Card className="border-destructive animate-in slide-in-from-top-4 duration-300">
             <CardContent className="pt-6">
               <p className="text-destructive">{error}</p>
             </CardContent>
@@ -144,7 +152,7 @@ Please create a tailored resume that highlights the relevant experience and skil
         )}
 
         {generatedResume && (
-          <Card>
+          <Card className="animate-in slide-in-from-bottom-4 duration-300 border border-slate-800/20 bg-gradient-to-b from-white to-slate-50/50">
             <CardHeader>
               <CardTitle>Generated Resume</CardTitle>
               <CardDescription>Your AI-tailored resume is ready</CardDescription>
