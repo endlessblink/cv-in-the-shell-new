@@ -40,23 +40,90 @@ export default function Home() {
       })
 
       const prompt = `
-        Job Description:
-        ${jobDescription}
+You are an expert ATS-optimization and resume writing specialist. Please convert the provided CV into an ATS-optimized format following these specific requirements:
 
-        ${qualifications ? `Additional Qualifications:
-        ${qualifications}` : ''}
+FORMAT REQUIREMENTS:
+- Use single-column layout
+- Convert to plain text format
+- Use standard bullet points (•) only
+- Remove all tables, graphics, columns, text boxes
+- Use standard formatting
+- Maintain consistent spacing
+- Keep under 2 pages
+- Use MM/YYYY date format
 
-        Current Resume:
-        ${currentResume}
+STRUCTURE (Follow this exact order):
+1. Contact Information
+   - Full Name
+   - Professional Email
+   - Phone Number
+   - City, State
+   - LinkedIn URL (if provided)
 
-        Please tailor my resume to match this job description${qualifications ? ' and incorporate my additional qualifications' : ''}.
-        Maintain a professional tone and format. Focus on relevant experiences and skills.
-        Keep the same basic structure but optimize the content for this specific role.
-      `
+2. Professional Summary (3-4 lines)
+   - Match keywords from job description
+   - Focus on relevant skills and achievements
+   - Quantify impact where possible
+
+3. Technical Skills
+   - List hard skills first
+   - Group by category
+   - Include relevant keywords from job posting
+   - Remove outdated/irrelevant skills
+
+4. Professional Experience
+   For each position:
+   - Company Name
+   - Job Title
+   - Location (City, State)
+   - Employment Dates (MM/YYYY - MM/YYYY)
+   - 3-5 achievement-focused bullets per role
+   - Start each bullet with action verbs
+   - Include metrics and quantifiable results
+   - Use present tense for current role, past for previous
+
+5. Education
+   - Degree, Major
+   - University Name
+   - Graduation Date (MM/YYYY)
+   - Relevant coursework (if recent graduate)
+   - GPA if above 3.5 (if provided)
+
+6. Certifications (if provided)
+   - Name of certification
+   - Issuing organization
+   - Date obtained (MM/YYYY)
+   - Expiration date if relevant
+
+OPTIMIZATION RULES:
+1. Match exact keywords from job description
+2. Use standard industry terminology
+3. Spell out acronyms at first use
+4. Remove personal pronouns
+5. Eliminate articles (a, an, the) when possible
+6. Start achievement bullets with strong action verbs
+7. Focus on measurable impacts and results
+8. Remove references section
+9. Eliminate irrelevant hobbies/interests
+
+Job Description:
+${jobDescription}
+
+${qualifications ? `Additional Qualifications:
+${qualifications}
+
+Use these additional qualifications to enhance the Professional Summary and Technical Skills sections where relevant.` : ''}
+
+Current Resume:
+${currentResume}
+
+Please process this CV according to the above specifications while maintaining relevant content and optimizing for ATS compatibility. Format the output in plain text with clear section breaks and consistent spacing.`
 
       const completion = await openai.chat.completions.create({
         messages: [{ role: "user", content: prompt }],
         model: "gpt-4",
+        temperature: 0.7,
+        max_tokens: 2000
       })
 
       setGeneratedResume(completion.choices[0].message.content || '')
