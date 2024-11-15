@@ -76,11 +76,44 @@ Please create a tailored resume that highlights the relevant experience and skil
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent blur-[100px] transition-all duration-1000 group-hover:via-white/20" />
 
       <div className="container mx-auto max-w-3xl relative">
-        {/* Main card with shimmer effect */}
+        {/* Title Section */}
+        <div className="text-center mb-8 relative">
+          <div className="relative inline-block">
+            <h1 className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 animate-gradient mb-2 tracking-tight">
+              CV in the Shell
+            </h1>
+            {/* Animated underline */}
+            <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-slate-400 to-transparent animate-shimmer opacity-50" />
+          </div>
+          
+          {/* Animated badge */}
+          <div className="inline-flex items-center px-3 py-1 mt-3 text-sm font-medium rounded-full bg-gradient-to-r from-slate-800 via-slate-900 to-slate-800 text-white shadow-lg animate-gradient">
+            <span className="mr-1">Powered by</span>
+            <span className="text-emerald-400">GPT-4</span>
+          </div>
+
+          {/* Description Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 text-left">
+            <div className="p-4 rounded-lg bg-white/50 backdrop-blur-sm border border-slate-200 shadow-sm hover:shadow-md transition-all duration-300">
+              <div className="text-lg font-semibold mb-2 text-slate-800">1. Input Details</div>
+              <p className="text-sm text-slate-600">Enter your OpenAI API key, paste the job description, and provide your qualifications.</p>
+            </div>
+            <div className="p-4 rounded-lg bg-white/50 backdrop-blur-sm border border-slate-200 shadow-sm hover:shadow-md transition-all duration-300">
+              <div className="text-lg font-semibold mb-2 text-slate-800">2. Current Resume</div>
+              <p className="text-sm text-slate-600">Share your existing resume to use as a base for the AI-powered enhancement.</p>
+            </div>
+            <div className="p-4 rounded-lg bg-white/50 backdrop-blur-sm border border-slate-200 shadow-sm hover:shadow-md transition-all duration-300">
+              <div className="text-lg font-semibold mb-2 text-slate-800">3. Generate</div>
+              <p className="text-sm text-slate-600">Let AI tailor your resume to match the job requirements perfectly.</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Main Form Card */}
         <Card className="mb-8 relative overflow-hidden border border-slate-800/20 bg-gradient-to-b from-white to-slate-50/50 shadow-2xl shadow-slate-500/20 before:pointer-events-none before:absolute before:inset-0 before:bg-[length:200%_200%] before:bg-[linear-gradient(45deg,transparent_25%,rgba(68,68,68,.2)_50%,transparent_75%,transparent_100%)] before:animate-shimmer">
           <CardHeader>
-            <CardTitle className="text-2xl bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 animate-gradient">CV in the Shell</CardTitle>
-            <CardDescription>Generate a tailored resume using AI</CardDescription>
+            <CardTitle className="text-xl text-slate-800">Resume Generator</CardTitle>
+            <CardDescription>Fill in the details below to generate your tailored resume</CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="space-y-2">
