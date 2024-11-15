@@ -23,8 +23,11 @@ export default function Home() {
     setGeneratedResume('')
 
     try {
+      console.log('Starting resume generation...')
+      console.log('Initializing OpenAI client...')
       const openai = new OpenAI({ apiKey, dangerouslyAllowBrowser: true })
 
+      console.log('Making API request to OpenAI...')
       const response = await openai.chat.completions.create({
         model: 'gpt-4',
         messages: [
@@ -50,9 +53,11 @@ Please create a tailored resume that highlights the relevant experience and skil
         temperature: 0.7,
       })
 
+      console.log('Successfully received response from OpenAI')
       setGeneratedResume(response.choices[0].message.content || '')
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred')
+      console.error('Error generating resume:', err)
+      setError(err instanceof Error ? err.message : 'An error occurred while generating the resume')
     } finally {
       setIsLoading(false)
     }
