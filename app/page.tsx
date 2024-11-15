@@ -176,13 +176,14 @@ Please process this CV according to the above specifications while maintaining r
             </div>
           </div>
 
-          {/* Optional: Add an ATS info badge */}
+          {/* ATS info badge */}
           <div className="mt-4 inline-flex items-center px-3 py-1 text-sm font-medium rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
             <svg className="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
             </svg>
             Optimized for Applicant Tracking Systems (ATS)
           </div>
+        </div>
 
         {/* Main Form Card */}
         <Card className="mb-8 relative overflow-hidden border border-slate-800/20 bg-white shadow-xl">
