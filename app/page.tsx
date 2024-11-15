@@ -17,51 +17,52 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false)
 
   const generateResume = async () => {
-    if (!apiKey || !jobDescription || !qualifications || !currentResume) {
-      setError('Please fill in all fields')
+    if (!apiKey) {
+      setError('Please enter your OpenAI API key')
+      return
+    }
+    if (!jobDescription) {
+      setError('Please enter the job description')
+      return
+    }
+    if (!currentResume) {
+      setError('Please enter your current resume')
       return
     }
 
-    setIsLoading(true)
-    setError('')
-    setGeneratedResume('')
-
     try {
-      console.log('Starting resume generation...')
-      console.log('Initializing OpenAI client...')
-      const openai = new OpenAI({ apiKey, dangerouslyAllowBrowser: true })
+      setError('')
+      setIsLoading(true)
 
-      console.log('Making API request to OpenAI...')
-      const response = await openai.chat.completions.create({
-        model: 'gpt-4',
-        messages: [
-          {
-            role: 'system',
-            content: 'You are a professional resume writer. Your task is to create a tailored resume based on the provided job description, qualifications, and current resume. Focus on relevant experience and skills that match the job requirements.'
-          },
-          {
-            role: 'user',
-            content: `
-Job Description:
-${jobDescription}
-
-Candidate Qualifications:
-${qualifications}
-
-Current Resume:
-${currentResume}
-
-Please create a tailored resume that highlights the relevant experience and skills for this job position. Format the resume professionally and ensure it is ATS-friendly.`
-          }
-        ],
-        temperature: 0.7,
+      const openai = new OpenAI({
+        apiKey: apiKey,
+        dangerouslyAllowBrowser: true
       })
 
-      console.log('Successfully received response from OpenAI')
-      setGeneratedResume(response.choices[0].message.content || '')
+      const prompt = `
+        Job Description:
+        ${jobDescription}
+
+        ${qualifications ? `Additional Qualifications:
+        ${qualifications}` : ''}
+
+        Current Resume:
+        ${currentResume}
+
+        Please tailor my resume to match this job description${qualifications ? ' and incorporate my additional qualifications' : ''}.
+        Maintain a professional tone and format. Focus on relevant experiences and skills.
+        Keep the same basic structure but optimize the content for this specific role.
+      `
+
+      const completion = await openai.chat.completions.create({
+        messages: [{ role: "user", content: prompt }],
+        model: "gpt-4",
+      })
+
+      setGeneratedResume(completion.choices[0].message.content || '')
     } catch (err) {
-      console.error('Error generating resume:', err)
-      setError(err instanceof Error ? err.message : 'An error occurred while generating the resume')
+      setError('Error generating resume. Please check your API key and try again.')
+      console.error('Error:', err)
     } finally {
       setIsLoading(false)
     }
@@ -96,7 +97,7 @@ Please create a tailored resume that highlights the relevant experience and skil
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 text-left">
             <div className="p-4 rounded-lg bg-white/50 backdrop-blur-sm border border-slate-200 shadow-sm hover:shadow-md transition-all duration-300">
               <div className="text-lg font-semibold mb-2 text-slate-800">1. Input Details</div>
-              <p className="text-sm text-slate-600">Enter your OpenAI API key, paste the job description, and provide your qualifications.</p>
+              <p className="text-sm text-slate-600">Enter your OpenAI API key and paste the job description.</p>
             </div>
             <div className="p-4 rounded-lg bg-white/50 backdrop-blur-sm border border-slate-200 shadow-sm hover:shadow-md transition-all duration-300">
               <div className="text-lg font-semibold mb-2 text-slate-800">2. Current Resume</div>
@@ -118,7 +119,7 @@ Please create a tailored resume that highlights the relevant experience and skil
           <CardContent className="space-y-6">
             <div className="space-y-2">
               <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                OpenAI API Key
+                OpenAI API Key <span className="text-red-500">*</span>
               </label>
               <Input
                 type="password"
@@ -126,42 +127,45 @@ Please create a tailored resume that highlights the relevant experience and skil
                 onChange={(e) => setApiKey(e.target.value)}
                 placeholder="Enter your OpenAI API key"
                 className="transition-all duration-300 hover:border-slate-400 focus:ring-2 focus:ring-slate-400/50"
+                required
               />
             </div>
 
             <div className="space-y-2">
               <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                Job Description
+                Job Description <span className="text-red-500">*</span>
               </label>
               <Textarea
                 value={jobDescription}
                 onChange={(e) => setJobDescription(e.target.value)}
                 placeholder="Paste the job description here..."
                 className="min-h-[100px] transition-all duration-300 hover:border-slate-400 focus:ring-2 focus:ring-slate-400/50"
+                required
               />
             </div>
 
             <div className="space-y-2">
               <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                Your Qualifications
+                Your Qualifications <span className="text-slate-400">(optional)</span>
               </label>
               <Textarea
                 value={qualifications}
                 onChange={(e) => setQualifications(e.target.value)}
-                placeholder="List your qualifications and skills..."
+                placeholder="List any additional qualifications or skills you'd like to highlight..."
                 className="min-h-[100px] transition-all duration-300 hover:border-slate-400 focus:ring-2 focus:ring-slate-400/50"
               />
             </div>
 
             <div className="space-y-2">
               <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                Current Resume
+                Current Resume <span className="text-red-500">*</span>
               </label>
               <Textarea
                 value={currentResume}
                 onChange={(e) => setCurrentResume(e.target.value)}
                 placeholder="Paste your current resume here..."
                 className="min-h-[200px] transition-all duration-300 hover:border-slate-400 focus:ring-2 focus:ring-slate-400/50"
+                required
               />
             </div>
           </CardContent>
